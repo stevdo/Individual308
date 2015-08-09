@@ -140,45 +140,73 @@ public class homegui {
 	
 	public static void popupwindow(String type) {
 		
-		
+		ActionListener listen = new btnListeners();
 		
 		JFrame newFolioFrame = new JFrame();
-		newFolioFrame.setSize(300, 200);
-		newFolioFrame.setTitle("New Folio");
 		newFolioFrame.setLocationRelativeTo(null);
-		newFolioFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		newFolioFrame.setResizable(false);
 		newFolioFrame.setLayout(null);
+		JPanel panel = new JPanel();
 		
-		JPanel newFolio = new JPanel();
-		newFolio.setBounds(0, 0, 300, 200);
+		//newfolio components
+		JTextField newFolio = new JTextField(20);
+		JButton newFolioOk = new JButton("ok");
+		JLabel enterName = new JLabel();
+		newFolioOk.addActionListener(listen);
+		//delete components
+		JLabel positive = new JLabel("Are you sure you want to delete the current portfolio?");
+		JButton yes =	new JButton("yes");
+		yes.addActionListener(listen);
+		
+		//quote components
 		JTextField tickStr = new JTextField(5);
 		JLabel ticker = new JLabel("Ticker String");
-		JTextField amntStr = new JTextField(5);
-		JLabel amount = new JLabel("quantity");
-		JButton newFolioOk = new JButton("ok");
-		JButton newFolioCancel = new JButton("cancel");
+		JTextField valStr = new JTextField(5);
+		JLabel value = new JLabel("value");
+		JButton quoteOk = new JButton("ok");
+		JButton Cancel = new JButton("cancel");
+		quoteOk.addActionListener(listen);
+		//
 		
 		
-		
+		newFolioFrame.add(panel);
 		
 		switch (type){
-		case "quote":
-		newFolioFrame.add(newFolio);
-		newFolio.add(ticker);
-		newFolio.add(tickStr);
-		newFolio.add(amount);
-		newFolio.add(amntStr);
-		newFolio.add(newFolioOk);
-		newFolio.add(newFolioCancel);
-		newFolioFrame.setVisible(true);
-		break;
 		case "newfolio":
+			newFolioFrame.setTitle("New Folio");
+			newFolioFrame.setSize(300, 200);
+			panel.setBounds(0, 0, 300, 200);
+			panel.add(enterName);
+			panel.add(newFolio);
+			panel.add(newFolioOk);
+			panel.add(Cancel);
 			break;
-			
-		
+		case "delete":
+			newFolioFrame.setTitle("Delete Folio");
+			newFolioFrame.setSize(300, 200);
+			panel.setBounds(0, 0, 300, 200);
+			panel.add(positive);
+			panel.add(yes);
+			panel.add(Cancel);
+			break;
+		case "save":
+			break;
+		case "quote":
+			newFolioFrame.setTitle("Quote");
+			newFolioFrame.setSize(300, 100);
+			panel.setBounds(0, 0, 300, 100);
+			newFolioFrame.add(panel);
+			panel.add(ticker);
+			panel.add(tickStr);
+			panel.add(value);
+			panel.add(valStr);
+			panel.add(quoteOk);
+			panel.add(Cancel);
+			valStr.setEditable(false);
+		break;
+		}
+			newFolioFrame.setVisible(true);
 		}
 	}
 	
 	
-}

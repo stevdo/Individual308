@@ -3,7 +3,7 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+
 
 import View.homegui;
 
@@ -26,6 +26,7 @@ public class btnListeners implements ActionListener {
 				break;
 			case "Delete Portfolio":
 				System.out.println("jesus");
+				homegui.popupwindow("delete");
 			break;
 			case "Quote":
 				System.out.println("bitchez");
@@ -33,15 +34,17 @@ public class btnListeners implements ActionListener {
 			break;
 			case "Save":
 				System.out.println("420");
+				homegui.popupwindow("save");
 			break;
 			case "Open Portfolio":
-				homegui.openFolio();
+				homegui.openFolio();	
 			break;
 			case "Refresh":
 				System.out.println("in church");
 			break;
-			case "newFolioOk":
+			case "ok":
 				System.out.println("fuck");
+			break;
 		}
 		
 	}
