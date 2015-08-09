@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import View.homegui;
+
 public class btnListeners implements ActionListener {
 
 
@@ -20,23 +22,27 @@ public class btnListeners implements ActionListener {
 			break;
 			case "New Portfolio":
 				System.out.println("THE GREEKS");
-			break;
+				homegui.popupwindow("newfolio");
+				break;
 			case "Delete Portfolio":
 				System.out.println("jesus");
 			break;
 			case "Quote":
 				System.out.println("bitchez");
+				homegui.popupwindow("quote");
 			break;
 			case "Save":
 				System.out.println("420");
 			break;
 			case "Open Portfolio":
-				System.out.println("smoke weed");
+				homegui.openFolio();
 			break;
 			case "Refresh":
 				System.out.println("in church");
 			break;
-			}
+			case "newFolioOk":
+				System.out.println("fuck");
+		}
 		
 	}
 	

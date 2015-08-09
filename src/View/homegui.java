@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -17,6 +18,8 @@ public class homegui {
 		System.out.println("shapnin");
 		
 	}
+	
+	
 	public void initialize() {
 		//initializes the home page which contains the 
 		
@@ -112,32 +115,70 @@ public class homegui {
 		
 		foliosFrame.add(topPanel);
 		foliosFrame.add(inputPanel);
-		foliosFrame.add(folioPanel);
-		
+		foliosFrame.add(folioPanel);	
 		foliosFrame.setVisible(true); 
 		folioPanel.setVisible(true);
-		topPanel.setVisible(true);
-		inputPanel.setVisible(true);
-		quantity.setVisible(true);
-		sellBtn.setVisible(true);
-		buyBtn.setVisible(true);
-		amount.setVisible(true);
-		tickerString.setVisible(true);
-		newFolio.setVisible(true);
-		delFolio.setVisible(true);
-		quote.setVisible(true);
-		save.setVisible(true);
-		open.setVisible(true);
-		refresh.setVisible(true);
-		
-		
-		
-		
 		scrollPane.setVisible(true);
 		table.setVisible(true);
 		
 
 	}	
+	
+	
+	//needs to be called from the method which will parse the file if 
+	//i have time to create it but looks nice for now
+	public static File openFolio() {
+		JFileChooser select = new JFileChooser();
+		JPanel load = new JPanel();
+		if (select.showOpenDialog(load) == JFileChooser.APPROVE_OPTION) {
+			return select.getSelectedFile();
+		}
+		return null;
+
+	}
+	
+	
+	public static void popupwindow(String type) {
+		
+		
+		
+		JFrame newFolioFrame = new JFrame();
+		newFolioFrame.setSize(300, 200);
+		newFolioFrame.setTitle("New Folio");
+		newFolioFrame.setLocationRelativeTo(null);
+		newFolioFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		newFolioFrame.setResizable(false);
+		newFolioFrame.setLayout(null);
+		
+		JPanel newFolio = new JPanel();
+		newFolio.setBounds(0, 0, 300, 200);
+		JTextField tickStr = new JTextField(5);
+		JLabel ticker = new JLabel("Ticker String");
+		JTextField amntStr = new JTextField(5);
+		JLabel amount = new JLabel("quantity");
+		JButton newFolioOk = new JButton("ok");
+		JButton newFolioCancel = new JButton("cancel");
+		
+		
+		
+		
+		switch (type){
+		case "quote":
+		newFolioFrame.add(newFolio);
+		newFolio.add(ticker);
+		newFolio.add(tickStr);
+		newFolio.add(amount);
+		newFolio.add(amntStr);
+		newFolio.add(newFolioOk);
+		newFolio.add(newFolioCancel);
+		newFolioFrame.setVisible(true);
+		break;
+		case "newfolio":
+			break;
+			
+		
+		}
+	}
 	
 	
 }
