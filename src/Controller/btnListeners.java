@@ -30,7 +30,6 @@ public class btnListeners implements ActionListener {
 				System.out.println("mogger");
 			break;
 			case "New Portfolio":
-				System.out.println("THE GREEKS");
 				homegui.popupwindow("newfolio");
 				//homegui.addFolio("steve");
 				break;
@@ -53,7 +52,7 @@ public class btnListeners implements ActionListener {
 				System.out.println("in church");
 			break;
 			case "ok":
-				System.out.println("fuck");
+				
 				newFolio.newTab(homegui.getFolioName());
 			break;
 		}
