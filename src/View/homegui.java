@@ -13,6 +13,14 @@ import Controller.btnListeners;
 
 public class homegui {
 	
+	 static JTextField tickerString = new JTextField(5);
+	 static JTextField amount = new JTextField(2);
+	static JTabbedPane tabs = new JTabbedPane();
+	public static JTextField newFolio = new JTextField(20);
+	static String[] col_name = {"Ticker", "Quantity", "£/Share","Value"};
+	static Object[][] data = {
+			{"", "", "",""}
+	};		
 
 	public void test() {
 		System.out.println("shapnin");
@@ -39,16 +47,10 @@ public class homegui {
 		JPanel inputPanel = new JPanel();
 		JPanel topPanel   = new JPanel();
 		
-		String[] col_name = {"Ticker", "Quantity", "£/Share","Value"};
-		Object[][] data = {
-				{"", "", "",""}
-		};		
 		
 	
 		
 		
-		JTextField tickerString = new JTextField(5);
-		JTextField amount = new JTextField(2);
 		JLabel quantity = new JLabel("Quantity       ");
 		JLabel Ticker	= new JLabel("Ticker Symbol");
 		JButton	sellBtn	= new JButton("Sell");
@@ -76,9 +78,13 @@ public class homegui {
 		JTable table = new JTable(data, col_name);
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
+		folioPanel.add(tabs);
+		tabs.add(scrollPane);
+		tabs.setBounds(0, 0, 700, 600);
+		scrollPane.setBounds(0, 50, 799, 650);
 		folioPanel.setLayout(new BorderLayout());
-		folioPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		folioPanel.add(table, BorderLayout.CENTER);
+//		scrollPane.add(table.getTableHeader(), BorderLayout.PAGE_START);
+//		scrollPane.add(table, BorderLayout.CENTER);
 		
 		
 		topPanel.setBounds(0, 0, 800, 50);
@@ -149,7 +155,6 @@ public class homegui {
 		JPanel panel = new JPanel();
 		
 		//newfolio components
-		JTextField newFolio = new JTextField(20);
 		JButton newFolioOk = new JButton("ok");
 		JLabel enterName = new JLabel();
 		newFolioOk.addActionListener(listen);
@@ -207,6 +212,30 @@ public class homegui {
 		}
 			newFolioFrame.setVisible(true);
 		}
+
+	public static void addFolio(String name){
+		JTable table = new JTable(data, col_name);
+		table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );
+
+	}
+	
+	public static String getTicker(){
+		String ticker= tickerString.getText();
+		return ticker;
+		
+	}
+	
+	public static int getAmount(){
+		String amnt = amount.getText();
+		int i = Integer.valueOf(amnt);
+		return i;
+	}
+	public static String getFolioName(){
+		String name = newFolio.getText();
+		System.out.println(name);
+		return newFolio.getText();
+	}
 	}
 	
 	

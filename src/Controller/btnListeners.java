@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 
 
 
+
+
+import Model.model;
+import Model.newFolio;
 import View.homegui;
 
 public class btnListeners implements ActionListener {
@@ -15,7 +19,12 @@ public class btnListeners implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()){
 			case "Buy":
-				System.out.println("FUCK");
+				String ticker;
+				int quantity;
+				//needs doing
+				ticker = homegui.getTicker();
+				quantity = homegui.getAmount();
+				model.buyShare(ticker, quantity);
 			break;
 			case "Sell":
 				System.out.println("mogger");
@@ -23,6 +32,7 @@ public class btnListeners implements ActionListener {
 			case "New Portfolio":
 				System.out.println("THE GREEKS");
 				homegui.popupwindow("newfolio");
+				//homegui.addFolio("steve");
 				break;
 			case "Delete Portfolio":
 				System.out.println("jesus");
@@ -44,6 +54,7 @@ public class btnListeners implements ActionListener {
 			break;
 			case "ok":
 				System.out.println("fuck");
+				newFolio.newTab(homegui.getFolioName());
 			break;
 		}
 		
