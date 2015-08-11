@@ -8,6 +8,11 @@ import java.awt.event.ActionListener;
 
 
 
+
+
+
+import javax.swing.JFileChooser;
+
 import Model.model;
 import Model.newFolio;
 import Model.sellShare;
@@ -38,8 +43,7 @@ public class btnListeners implements ActionListener {
 				
 			break;
 			case "New Portfolio":
-				homegui.popupwindow("newfolio");
-				//homegui.addFolio("steve");
+				homegui.newFolioEntry();
 				break;
 			case "Delete Portfolio":
 				System.out.println("jesus");
@@ -50,8 +54,7 @@ public class btnListeners implements ActionListener {
 				homegui.popupwindow("quote");
 			break;
 			case "Save":
-				System.out.println("420");
-				homegui.popupwindow("save");
+				homegui.saveWindow();
 			break;
 			case "Open Portfolio":
 				homegui.openFolio();	
@@ -74,5 +77,14 @@ public class btnListeners implements ActionListener {
 		}
 		
 	}
+
+	public static void Loadhandler(JFileChooser select) {
+		System.out.println("loadhandler calling loadfile");
+		model.loadFile(select);
+		
+	}
+
+
+
 	
 }

@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import Controller.btnListeners;
+import Controller.viewUpdate;
 
 public class homegui {
 	
@@ -25,7 +27,7 @@ public class homegui {
 	public static JTabbedPane tabs = new JTabbedPane();
 	public static JTextField newFolio = new JTextField(20);
 	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
-	static Object[][] data = {
+	public static Object[][] data = {
 			{"", "", "",""}
 	};		
 	static JTable table = new JTable(new DefaultTableModel(data, col_name));
@@ -37,7 +39,7 @@ public class homegui {
 	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
 	public static JFrame newFolioFrame = new JFrame();
-
+	public static JTextField valStr = new JTextField(5);
 	public void test() {
 		System.out.println("shapnin");
 		
@@ -146,13 +148,18 @@ public class homegui {
 	
 	//needs to be called from the method which will parse the file if 
 	//i have time to create it but looks nice for now
-	public static File openFolio() {
+	public static void openFolio() {
 		JFileChooser select = new JFileChooser();
 		JPanel load = new JPanel();
 		if (select.showOpenDialog(load) == JFileChooser.APPROVE_OPTION) {
-			return select.getSelectedFile();
-		}
-		return null;}
+			if(select.getSelectedFile() !=null){
+				System.out.println("openfolio submitted, calling loadhandler");
+				btnListeners.Loadhandler(select);
+				
+			}
+			
+		}}
+
 	
 	
 	public static void popupwindow(String type) {
@@ -173,26 +180,52 @@ public class homegui {
 		//quote components
 		JTextField tickStr = new JTextField(5);
 		JLabel ticker = new JLabel("Ticker String");
-		JTextField valStr = new JTextField(5);
 		JLabel value = new JLabel("value");
 		JButton quoteOk = new JButton("ok");
 		JButton Cancel = new JButton("cancel");
 		quoteOk.addActionListener(listen);
+	}
 		//
 		
 		
 		
-		switch (type){
-		case "Not Enough Shares":
-			newFolioFrame.setTitle("Error");
+		public static void newFolioEntry(){
+			ActionListener listen = new btnListeners();
+			JFrame newFolioFrame = new JFrame();
+			JButton newFolioOk = new JButton("ok");
+			JPanel panel = new JPanel();
+			JLabel enterName = new JLabel();
+			JButton Cancel = new JButton("cancel");
+			newFolioOk.addActionListener(listen);
+			newFolioFrame.setTitle("New Folio");
 			newFolioFrame.setSize(300, 200);
-			newFolioFrame.add(panel);
 			newFolioFrame.setLocationRelativeTo(null);
 			newFolioFrame.setResizable(false);
 			newFolioFrame.setLayout(null);
 			panel.setBounds(0, 0, 300, 200);
-			JLabel error = new JLabel("Not Enough Shares to do that");
-			
+			newFolioFrame.add(panel);
+			panel.add(enterName);
+			panel.add(newFolio);
+			panel.add(newFolioOk);
+			panel.add(Cancel);
+			newFolioFrame.setVisible(true);
+			}
+		
+		public static void error(String Error){
+			ActionListener listen = new btnListeners();
+			JFrame errorFrame = new JFrame();
+			JButton newFolioOk = new JButton("ok");
+			JPanel panel = new JPanel();
+			errorFrame.setTitle("Error");
+			errorFrame.setSize(300, 200);
+			errorFrame.add(panel);
+			errorFrame.setLocationRelativeTo(null);
+			errorFrame.setResizable(false);
+			errorFrame.setLayout(null);
+			panel.setBounds(0, 0, 300, 200);
+			JLabel error = new JLabel(Error);}
+		
+/*
 		case "newfolio":
 			newFolioFrame.setTitle("New Folio");
 			newFolioFrame.setSize(300, 200);
@@ -239,7 +272,7 @@ public class homegui {
 		}
 			newFolioFrame.setVisible(true);
 		}
-
+*/
 	public static void addFolio(String name){
 		JTable newFolioTable = new JTable(DTM);
 		//DefaultTableModel D = (DefaultTableModel)table.getModel();
@@ -377,6 +410,46 @@ public class homegui {
 		newFolioFrame.setVisible(false);
 
 		}
+	public static void saveWindow(){
+	  String sb = "TEST CONTENT";
+	    JFileChooser chooser = new JFileChooser();
+	    chooser.setCurrentDirectory(new File("/home/me/Documents"));
+	    int retrival = chooser.showSaveDialog(null);
+	    if (retrival == JFileChooser.APPROVE_OPTION) {
+	        try {
+	            FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt");
+	            fw.write(sb.toString());
+	            String title = "\\" + chooser.getSelectedFile().getName();
+	            String path = chooser.getSelectedFile().getAbsolutePath() +".txt";
+	            //System.out.println(title);
+	            viewUpdate.saveHandler(tabs.getSelectedIndex(), path, title);
+	            
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	       
+	    
 	}
+
+
+	public static void popQuoteField(String value) {
+		valStr.setText(value);
+		
+	}
+
+
+	public static void loadedDataToTable(int row, int col, String data2) {
+		int tab=  tabs.getSelectedIndex();
+			if (col==4) {
+				DTM.addRow(data);}
+			DTM.setValueAt(data2.toString(), row, col);
+			
+		}
+		
+	}
+
+
+
 
 	
