@@ -1,5 +1,10 @@
 package Controller;
 
+import java.util.Vector;
+
+import javax.swing.table.TableModel;
+
+import Model.buyShare;
 import View.homegui;
 
 public class viewUpdate {
@@ -21,7 +26,37 @@ public class viewUpdate {
 	
 	
 	public static void tableFill(String name,String price, int quantity, Float value){
-		homegui.updateTable(name, quantity, price, value);
+		buyShare.determine(name, quantity, price, value);
+	}
+	
+	public static TableModel returnDTM(int index){
+		return homegui.sendTable(index);
+		
+	}
+
+
+	public static void addNewRow(Vector row, int selectedIndex) {
+		homegui.addRow(row,selectedIndex);
+		
+	}
+
+
+	public static void addMoreShares(int quantity, float pr, float newValue,
+			int shareLoc, int selectedIndex) {
+		homegui.addshares(quantity, pr, newValue, shareLoc,selectedIndex);
+		
+		
+	}
+
+
+	public static void removeRow(int selectedIndex, int shareLoc) {
+		homegui.deleteShare(selectedIndex,shareLoc);
+		
+	}
+
+
+	public static void invalidInput(String error) {
+		homegui.errorMessage(error);
 		
 	}
 }

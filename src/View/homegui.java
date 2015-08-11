@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import Controller.btnListeners;
 
@@ -21,7 +22,7 @@ public class homegui {
 	
 	 static JTextField tickerString = new JTextField(5);
 	 static JTextField amount = new JTextField(2);
-	static JTabbedPane tabs = new JTabbedPane();
+	public static JTabbedPane tabs = new JTabbedPane();
 	public static JTextField newFolio = new JTextField(20);
 	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
 	static Object[][] data = {
@@ -35,6 +36,7 @@ public class homegui {
 	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
 	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
+	public static JFrame newFolioFrame = new JFrame();
 
 	public void test() {
 		System.out.println("shapnin");
@@ -157,10 +159,6 @@ public class homegui {
 		
 		ActionListener listen = new btnListeners();
 		
-		JFrame newFolioFrame = new JFrame();
-		newFolioFrame.setLocationRelativeTo(null);
-		newFolioFrame.setResizable(false);
-		newFolioFrame.setLayout(null);
 		JPanel panel = new JPanel();
 		
 		//newfolio components
@@ -183,13 +181,26 @@ public class homegui {
 		//
 		
 		
-		newFolioFrame.add(panel);
 		
 		switch (type){
+		case "Not Enough Shares":
+			newFolioFrame.setTitle("Error");
+			newFolioFrame.setSize(300, 200);
+			newFolioFrame.add(panel);
+			newFolioFrame.setLocationRelativeTo(null);
+			newFolioFrame.setResizable(false);
+			newFolioFrame.setLayout(null);
+			panel.setBounds(0, 0, 300, 200);
+			JLabel error = new JLabel("Not Enough Shares to do that");
+			
 		case "newfolio":
 			newFolioFrame.setTitle("New Folio");
 			newFolioFrame.setSize(300, 200);
+			newFolioFrame.setLocationRelativeTo(null);
+			newFolioFrame.setResizable(false);
+			newFolioFrame.setLayout(null);
 			panel.setBounds(0, 0, 300, 200);
+			newFolioFrame.add(panel);
 			panel.add(enterName);
 			panel.add(newFolio);
 			panel.add(newFolioOk);
@@ -197,7 +208,11 @@ public class homegui {
 			break;
 		case "delete":
 			newFolioFrame.setTitle("Delete Folio");
+			newFolioFrame.setLocationRelativeTo(null);
+			newFolioFrame.setResizable(false);
+			newFolioFrame.setLayout(null);
 			newFolioFrame.setSize(300, 200);
+			newFolioFrame.add(panel);
 			panel.setBounds(0, 0, 300, 200);
 			panel.add(positive);
 			panel.add(yes);
@@ -207,6 +222,9 @@ public class homegui {
 			break;
 		case "quote":
 			newFolioFrame.setTitle("Quote");
+			newFolioFrame.setLocationRelativeTo(null);
+			newFolioFrame.setResizable(false);
+			newFolioFrame.setLayout(null);
 			newFolioFrame.setSize(300, 100);
 			panel.setBounds(0, 0, 300, 100);
 			newFolioFrame.add(panel);
@@ -280,52 +298,85 @@ public class homegui {
 		System.out.println("im differentish!!!");
 	}
 	
-	public static void updateTable(String name, int quantity, String price, Float value){
-		boolean exists = false;
-		int selectedIndex = tabs.getSelectedIndex();
-		Vector row = new Vector();
-		row.add(name);
-		row.add(quantity);
-		row.add(price);
-		row.add(value);
-		 if (selectedIndex==0){
-			 int shareLoc = 0;
-			 int rows = DTM.getRowCount();
-			 for(int i = 0; i < rows; i++){
-				 System.out.println("Comparing: " + name + " to: " + DTM.getValueAt(i, 0));
-				 if(DTM.getValueAt(i, 0).equals(name)){	
-					 shareLoc=i;
-					 exists = true;
-					 break;
-				 }				 
-			 }
-			 if(exists){
-				 System.out.println("All ready in table");
-				 int qt = (int) DTM.getValueAt(shareLoc, 1);
-				 float pr = Float.parseFloat(price);
-				 quantity += qt;
-				 float newValue = quantity*pr;
-				 DTM.setValueAt(quantity, shareLoc, 1);
-				 DTM.setValueAt(pr, shareLoc, 2);
-				 DTM.setValueAt(newValue, shareLoc, 3);
-				 System.out.println(qt+ " "+pr+" " + " "+newValue);
-				 
-			 }
-			 else{
-				 System.out.println("Not in table");
-				 DTM.addRow(row);
-			 }
-		
-		 }
-		 if (selectedIndex==1){
-		DTM1.addRow(row);
+	
+
+	public static void addRow(Vector row, int selectedIndex) {
+		if (selectedIndex==0){
+			DTM.addRow(row);
 		}
-		 if (selectedIndex==2){
-				DTM2.addRow(row);
-				}
-		System.out.println("test "+ selectedIndex);
+		if (selectedIndex==1){
+			DTM1.addRow(row);
+		}
+		if (selectedIndex==2){
+			DTM2.addRow(row);
+		}
+		if (selectedIndex==3){DTM3.addRow(row);}
+	//	if (selectedIndex==4){DTM4.addRow(row);}
+		
+	}
+
+
+	public static void addshares(int quantity, float pr, float newValue,
+			int shareLoc, int selectedIndex) {
+		if (selectedIndex==0){
+			DTM.setValueAt(quantity, shareLoc, 1);
+			DTM.setValueAt(pr, shareLoc, 2);
+			DTM.setValueAt(newValue, shareLoc, 3);
+		}
+		if (selectedIndex==1){
+			DTM1.setValueAt(quantity, shareLoc, 1);
+			DTM1.setValueAt(pr, shareLoc, 2);
+			DTM1.setValueAt(newValue, shareLoc, 3);
+		}
+		if (selectedIndex==2){
+			DTM2.setValueAt(quantity, shareLoc, 1);
+			DTM2.setValueAt(pr, shareLoc, 2);
+			DTM2.setValueAt(newValue, shareLoc, 3);
+		if (selectedIndex==3){
+			DTM3.setValueAt(quantity, shareLoc, 1);
+			DTM3.setValueAt(pr, shareLoc, 2);
+			DTM3.setValueAt(newValue, shareLoc, 3);
+	//	if (selectedIndex==4){
+	//		DTM4.setValueAt(quantity, shareLoc, 1);
+	//		DTM4.setValueAt(pr, shareLoc, 2);
+	//		DTM4.setValueAt(newValue, shareLoc, 3);
+		}
+			}
+	}
+
+
+	public static DefaultTableModel sendTable(int index) {
+		if (index==0){
+				return DTM;}
+		if (index==1){
+			return DTM1;}
+		if (index==2){
+			return DTM2;}
+		else {return null;}
+		
+	}
+
+
+	public static void deleteShare(int index, int rowNum) {
+		// TODO Auto-generated method stub
+		if (index==0){
+			DTM.removeRow(rowNum);}
+		if (index==1){
+			DTM1.removeRow(rowNum);}
+		if (index==2){
+			DTM2.removeRow(rowNum);}
+	}
+
+
+	public static void errorMessage(String error) {
+		// TODO Auto-generated method stub
 		
 	}
 	
+	public static void destroyNewFolio(int panelNo){
+		newFolioFrame.setVisible(false);
+
+		}
+	}
+
 	
-}

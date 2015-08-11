@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 
 
 
+
 import Model.model;
 import Model.newFolio;
+import Model.sellShare;
 import View.homegui;
 
 public class btnListeners implements ActionListener {
@@ -21,13 +23,19 @@ public class btnListeners implements ActionListener {
 			case "Buy":
 				String ticker;
 				int quantity;
+				int flag=0;
 				//needs doing
 				ticker = homegui.getTicker();
 				quantity = homegui.getAmount();
-				model.buyShare(ticker, quantity);
+				flag = 0;
+				model.buyShare(ticker, quantity,flag);
 			break;
 			case "Sell":
-				System.out.println("mogger");
+				ticker = homegui.getTicker();
+				quantity = homegui.getAmount();
+				flag = 1;
+				model.buyShare(ticker, quantity,flag);
+				
 			break;
 			case "New Portfolio":
 				homegui.popupwindow("newfolio");
@@ -52,9 +60,17 @@ public class btnListeners implements ActionListener {
 				System.out.println("in church");
 			break;
 			case "ok":
-				
+				homegui.destroyNewFolio(0);
 				newFolio.newTab(homegui.getFolioName());
 			break;
+			case "yes":
+				homegui.destroyNewFolio(0);
+				
+				break;
+			case "cancel":
+				int panel = 0; 
+				homegui.destroyNewFolio(panel);
+				break;
 		}
 		
 	}
