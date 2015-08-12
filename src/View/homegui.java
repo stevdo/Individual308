@@ -22,13 +22,25 @@ import Controller.viewUpdate;
 
 public class homegui {
 	
+	private static ArrayList<JTable> table_array = new ArrayList<JTable>();
 	
 	static JTextField tickerString = new JTextField(5);
 	static JTextField amount = new JTextField(2);
 	public static JTabbedPane tabs = new JTabbedPane();
+	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
+	public static Object[][] data; 
 	
 	
-
+	static JTable table = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table1 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table2 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table3 = new JTable(new DefaultTableModel(data, col_name));
+	
+	
+	static DefaultTableModel DTM = (DefaultTableModel)table.getModel();
+	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
+	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
+	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
 	public static JFrame newFolioFrame = new JFrame();
 	public static JFrame errorFrame = new JFrame();
 	public static JFrame deleteFrame = new JFrame();
@@ -46,6 +58,7 @@ public class homegui {
 	public void initialize() {
 		//Initialises the home page which contains the 
 		
+		table_array.add(table);
 		
 		JFrame foliosFrame;
 		
@@ -92,7 +105,7 @@ public class homegui {
 		folioPanel.setBackground(Color.white);
 		folioPanel.setBorder(BorderFactory.createLineBorder(Color.green));
 
-	//able.setFillsViewportHeight(true);
+		table.setFillsViewportHeight(true);
 		folioPanel.add(tabs);
 		tabs.setBounds(0, 0, 700, 600);
 		folioPanel.setLayout(new BorderLayout());
@@ -139,7 +152,7 @@ public class homegui {
 		foliosFrame.add(folioPanel);	
 		foliosFrame.setVisible(true); 
 		folioPanel.setVisible(true);
-//		table.setVisible(true);
+		table.setVisible(true);
 		tabs.addChangeListener(new ChangeListener(){
 	        public void stateChanged(ChangeEvent e) {
 	        	//updateValue();
@@ -270,6 +283,27 @@ public class homegui {
 			quoteFrame.setVisible(true);
 		}
 
+	public static void addFolio(String name){
+		int numberOfTabs = tabs.getTabCount();
+		int errorFlag = 0;
+		for (int i = 0; i< numberOfTabs; i++) {
+			System.out.println("looping");
+			String currentName = tabs.getTitleAt(i);
+			if (currentName == name) {
+				errorFlag = 1;
+				error("Duplicate Folio Name");
+			}
+		}
+		if (!(errorFlag==1))
+		{
+		JTable newFolioTable = new JTable(DTM);
+		
+		newFolioTable.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(newFolioTable) );
+		
+		table_array.add(newFolioTable);
+		}
+	}
 	
 	public static String getTicker(){
 		String ticker= tickerString.getText();
@@ -288,9 +322,33 @@ public class homegui {
 		return newFolio.getText();
 	}
 	
+	public static void addFolio1(String name){
+		JTable newFolioTable1 = new JTable(DTM1);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable1.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(newFolioTable1) );
+		
+		table_array.add(newFolioTable1);
+		System.out.println("im different!!!");
+	}
 	
-	
-
+	public static void addFolio2(String name){
+		JTable newFolioTable2 = new JTable(DTM2);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable2.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(newFolioTable2) );
+		
+		table_array.add(newFolioTable2);
+		System.out.println("im differentish!!!");
+	}
 	
 	
 
