@@ -9,10 +9,12 @@ import Controller.viewUpdate;
 import View.homegui;
 
 public class buyShare {
-public static void determine(String name, int quantity, String price, Float value){
+public static void determine(String name, int quantity, String price){
 	
 	boolean exists = false;
 	int selectedIndex = homegui.tabs.getSelectedIndex();
+	float value = Float.parseFloat(price)*(float)quantity;
+	
 	Vector row = new Vector();
 	row.add(name);
 	row.add(quantity);

@@ -18,8 +18,8 @@ public class viewUpdate {
 	}
 	
 	
-	public static void tableFill(String name,String price, int quantity, Float value){
-		buyShare.determine(name, quantity, price, value);
+	public static void tableFill(String name,String price, int quantity){
+		buyShare.determine(name, quantity, price);
 	}
 	
 	public static TableModel returnDTM(int index){

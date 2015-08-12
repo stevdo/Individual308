@@ -19,20 +19,26 @@ public class model {
 	
 	
 public static void buyShare(String ticker, int quantity, int flag) {
-	float value = 321;
+	String quoteVal = null;
+	try {
+		quoteVal = StrathQuoteServer.getLastValue(ticker);
+	} catch (WebsiteDataException | NoSuchTickerException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	if (flag == 0){
-	viewUpdate.tableFill(ticker,"115.50",quantity,value);
+	viewUpdate.tableFill(ticker,quoteVal,quantity);
 	} 
 	if (flag == 1){
-		sellShare.determine(ticker, quantity, "115.50", value);
+		sellShare.determine(ticker, quantity, quoteVal);
 	}
 }
 	
 	public static void quote(String ticker){
-		System.out.println("lol ig ot calleed");
+		System.out.println("lol i got calleed");
 		String quoteVal = "0";
 		try {
-			System.out.println("pls w8");
+			System.out.println("pls w8 bruv");
 			quoteVal = StrathQuoteServer.getLastValue(ticker);
 		} catch (WebsiteDataException e) {
 			// TODO Auto-generated catch block
@@ -113,26 +119,7 @@ public static void buyShare(String ticker, int quantity, int flag) {
 		}
 	}
 	
-/*public static void buyShare(String ticker, int quantity) {
-	String price = "-1";
-	try {
-		price = StrathQuoteServer.getLastValue(ticker);
-	} catch (WebsiteDataException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (NoSuchTickerException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	System.out.println(price);
 
-	Float value =	Float.valueOf(price);
-	value = value*quantity;
-	System.out.println(value);
-	viewUpdate.tableFill(ticker, price, quantity, value);
-	
-	
-	}*/
 
 
 

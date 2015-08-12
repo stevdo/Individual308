@@ -48,15 +48,12 @@ public class btnListeners implements ActionListener {
 				homegui.newFolioEntry();
 				break;
 			case "Delete Portfolio":
-				System.out.println("jesus");
 				homegui.deleteFolio();
 			break;
 			case "Quote":
-				System.out.println("bitchez");
 				homegui.quoteShare();
 			break;
 			case "quote":
-				System.out.println("nig");
 				model.quote(homegui.quoteTicker.getText());
 			break;
 			case "Save":
@@ -73,8 +70,8 @@ public class btnListeners implements ActionListener {
 				newFolio.newTab(homegui.getFolioName());
 			break;
 			case "yes":
-				System.out.println("slut");
 				homegui.destroyFrame(1);
+				homegui.deletion();
 				
 				break;
 			case "cancel":
@@ -83,6 +80,10 @@ public class btnListeners implements ActionListener {
 				break;
 			case "positive":
 				homegui.deletion();
+				break;
+			case "no":
+				homegui.destroyFrame(1);
+				break;
 		}
 		
 	}

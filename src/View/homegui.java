@@ -42,8 +42,8 @@ public class homegui {
 	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
 	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
-	static DefaultTableModel DTM4 = (DefaultTableModel)table2.getModel();
-	static DefaultTableModel DTM5 = (DefaultTableModel)table3.getModel();
+	static DefaultTableModel DTM4 = (DefaultTableModel)table4.getModel();
+	static DefaultTableModel DTM5 = (DefaultTableModel)table5.getModel();
 	
 	public static JFrame newFolioFrame = new JFrame();
 	public static JFrame errorFrame = new JFrame();
@@ -95,7 +95,7 @@ public class homegui {
 		JButton quote 	= new JButton("Quote");
 		JButton save	= new JButton("Save");
 		JButton open	= new JButton("Open Portfolio");
-		JButton refresh = new JButton("Refresh");
+
 		JLabel thisFolio = new JLabel("This folio value");
 		
 		newFolio.addActionListener(listen);
@@ -103,7 +103,7 @@ public class homegui {
 		quote.addActionListener(listen);
 		save.addActionListener(listen);
 		open.addActionListener(listen);
-		refresh.addActionListener(listen);
+
 		buyBtn.addActionListener(listen);
 		sellBtn.addActionListener(listen);
 		
@@ -127,13 +127,11 @@ public class homegui {
 		topPanel.add(quote);
 		topPanel.add(save);
 		topPanel.add(open);
-		topPanel.add(refresh);
 		newFolio.setPreferredSize(new Dimension (121,35));
 		delFolio.setPreferredSize(new Dimension (121,35));
 		quote.setPreferredSize(new Dimension (121,35));
 		save.setPreferredSize(new Dimension (121,35));
 		open.setPreferredSize(new Dimension (121,35));
-		refresh.setPreferredSize(new Dimension (121,35));
 		
 		
 		
@@ -239,19 +237,24 @@ public class homegui {
 			deleteFrame.add(panel);
 			JButton positive = new JButton("yes");
 			JButton negative = new JButton("no");
+			panel.add(youSure);
 			panel.setBounds(0, 0, 300, 80);
 			panel.add(positive);
 			positive.addActionListener(listen);
+			negative.addActionListener(listen);
 			panel.add(negative);
 			deleteFrame.setVisible(true);
 		}
 		public static void deletion(){
 			int current = tabs.getSelectedIndex();
+			
 			DefaultTableModel CurrDtm = sendTable(current);
 			while (CurrDtm.getRowCount() > 0){
-			CurrDtm.removeRow(CurrDtm.getRowCount());
+				System.out.println("deleting a row");
+			CurrDtm.removeRow(CurrDtm.getRowCount()-1);
 			}
-			DTM = CurrDtm;
+
+			tabs.removeTabAt(current);
 		}
 		
 		public static void quoteShare(){
@@ -352,18 +355,25 @@ public class homegui {
 			DTM3.setValueAt(quantity, shareLoc, 1);
 			DTM3.setValueAt(pr, shareLoc, 2);
 			DTM3.setValueAt(newValue, shareLoc, 3);
-	//	if (selectedIndex==4){
-	//		DTM4.setValueAt(quantity, shareLoc, 1);
-	//		DTM4.setValueAt(pr, shareLoc, 2);
-	//		DTM4.setValueAt(newValue, shareLoc, 3);
 		}
+		if (selectedIndex==4){
+			DTM4.setValueAt(quantity, shareLoc, 1);
+			DTM4.setValueAt(pr, shareLoc, 2);
+			DTM4.setValueAt(newValue, shareLoc, 3);
+		}
+		if (selectedIndex==5){
+			DTM5.setValueAt(quantity, shareLoc, 1);
+			DTM5.setValueAt(pr, shareLoc, 2);
+			DTM5.setValueAt(newValue, shareLoc, 3);
+		}
+		
 			}
 	}
 
 
 	public static DefaultTableModel sendTable(int index) {
 		if (index==0){
-				return DTM;}
+			return DTM;}
 		if (index==1){
 			return DTM1;}
 		if (index==2){
@@ -441,7 +451,7 @@ public class homegui {
 		int tab=  tabs.getTabCount();
 		int intData = 0;
 		Float floatData = 00.00f;
-		DefaultTableModel CurrDTM=sendTable(tab+1);
+		DefaultTableModel CurrDTM=sendTable(tab);
 		int rowCount=CurrDTM.getRowCount();
 		
 		if (col==0){ if (row < rowCount){
@@ -460,18 +470,7 @@ public class homegui {
 			floatData = Float.valueOf(data2);
 			CurrDTM.setValueAt(floatData, row, col);
 			}
-		if (tab==0){
-			DTM=CurrDTM;}
-		if (tab==1){
-			DTM1=CurrDTM;}
-		if (tab==2){
-			DTM2=CurrDTM;}
-		if (tab==3){
-			DTM3=CurrDTM;}
-		if (tab==4){
-			DTM4=CurrDTM;}
-		if (tab==5){
-			DTM5=CurrDTM;}
+
 		
 	}
 	 	
@@ -479,6 +478,7 @@ public class homegui {
 	public static void updateValue() {
 		int current = tabs.getSelectedIndex();
 		DefaultTableModel table =sendTable(current);
+		if (!(table==null)) {
 		int total = table.getRowCount();
 		float value = 0;
 		for( int i=0; i<total; i++){
@@ -486,11 +486,10 @@ public class homegui {
 		value += currval;
 		}
 		String valueStr = Float.toString(value);
-		Value.setText(valueStr);
-		
+		Value.setText(valueStr);}}
 	}
 
-}
+
 //attempt mvc
 //delete folio
 //kill urself
