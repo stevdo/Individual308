@@ -63,7 +63,7 @@ public class viewUpdate {
 	}
 	
 	public static void invalidInput(String error) {
-		homegui.errorMessage(error);
+		homegui.error(error);
 		
 	}
 	

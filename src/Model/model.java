@@ -6,12 +6,18 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import Controller.btnListeners;
 import Controller.viewUpdate;
 
 public class model {
+	
+
+	
+	
 public static void buyShare(String ticker, int quantity, int flag) {
 	float value = 321;
 	if (flag == 0){

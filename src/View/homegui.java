@@ -24,21 +24,29 @@ public class homegui {
 	
 	private static ArrayList<JTable> table_array = new ArrayList<JTable>();
 	
-	 static JTextField tickerString = new JTextField(5);
-	 static JTextField amount = new JTextField(2);
+	static JTextField tickerString = new JTextField(5);
+	static JTextField amount = new JTextField(2);
 	public static JTabbedPane tabs = new JTabbedPane();
-	public static JTextField newFolio = new JTextField(20);
 	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
 	public static Object[][] data; 
+	
+	
 	static JTable table = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table1 = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table2 = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table3 = new JTable(new DefaultTableModel(data, col_name));
+	
+	
 	static DefaultTableModel DTM = (DefaultTableModel)table.getModel();
 	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
 	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
 	public static JFrame newFolioFrame = new JFrame();
+	public static JFrame errorFrame = new JFrame();
+	public static JFrame deleteFrame = new JFrame();
+	public static JFrame quoteFrame = new JFrame();
+
+	public static JTextField newFolio = new JTextField(20);
 	public static JTextField valStr = new JTextField(5);
 	public static JTextField Value = new JTextField(5);
 	public void test() {
@@ -76,7 +84,7 @@ public class homegui {
 		JLabel Ticker	= new JLabel("Ticker Symbol");
 		JButton	sellBtn	= new JButton("Sell");
 		JButton buyBtn  = new JButton("Buy");
-		JButton newFolio = new JButton("New Portfolio");
+		JButton newFolio = new JButton("New Portfolios");
 		JButton delFolio = new JButton("Delete Portfolio");
 		JButton quote 	= new JButton("Quote");
 		JButton save	= new JButton("Save");
@@ -172,7 +180,7 @@ public class homegui {
 		}}
 
 	
-	public static void popupwindow(String type) {
+	/*public static void popupwindow(String type) {
 		
 		ActionListener listen = new btnListeners();
 		
@@ -195,7 +203,7 @@ public class homegui {
 		JButton Cancel = new JButton("cancel");
 		quoteOk.addActionListener(listen);
 	}
-		//
+		*/
 		
 		
 		
@@ -204,11 +212,11 @@ public class homegui {
 			JFrame newFolioFrame = new JFrame();
 			JButton newFolioOk = new JButton("ok");
 			JPanel panel = new JPanel();
-			JLabel enterName = new JLabel();
+			JLabel enterName = new JLabel("Enter the name of your portfolio and press ok");
 			JButton Cancel = new JButton("cancel");
 			newFolioOk.addActionListener(listen);
-			newFolioFrame.setTitle("New Folio");
-			newFolioFrame.setSize(300, 200);
+			newFolioFrame.setTitle("New Folios");
+			newFolioFrame.setSize(300, 80);
 			newFolioFrame.setLocationRelativeTo(null);
 			newFolioFrame.setResizable(false);
 			newFolioFrame.setLayout(null);
@@ -216,14 +224,14 @@ public class homegui {
 			newFolioFrame.add(panel);
 			panel.add(enterName);
 			panel.add(newFolio);
+			newFolio.setText("");
 			panel.add(newFolioOk);
-			panel.add(Cancel);
 			newFolioFrame.setVisible(true);
 			}
 		
 		public static void error(String Error){
 			ActionListener listen = new btnListeners();
-			JFrame errorFrame = new JFrame();
+			
 			JButton newFolioOk = new JButton("ok");
 			JPanel panel = new JPanel();
 			errorFrame.setTitle("Error");
@@ -233,67 +241,68 @@ public class homegui {
 			errorFrame.setResizable(false);
 			errorFrame.setLayout(null);
 			panel.setBounds(0, 0, 300, 200);
-			JLabel error = new JLabel(Error);}
+			JLabel error = new JLabel(Error);
+			}
 		
-/*
-		case "newfolio":
-			newFolioFrame.setTitle("New Folio");
-			newFolioFrame.setSize(300, 200);
-			newFolioFrame.setLocationRelativeTo(null);
-			newFolioFrame.setResizable(false);
-			newFolioFrame.setLayout(null);
-			panel.setBounds(0, 0, 300, 200);
-			newFolioFrame.add(panel);
-			panel.add(enterName);
-			panel.add(newFolio);
-			panel.add(newFolioOk);
-			panel.add(Cancel);
-			break;
-		case "delete":
-			newFolioFrame.setTitle("Delete Folio");
-			newFolioFrame.setLocationRelativeTo(null);
-			newFolioFrame.setResizable(false);
-			newFolioFrame.setLayout(null);
-			newFolioFrame.setSize(300, 200);
-			newFolioFrame.add(panel);
+
+		public static void deleteFolio(){
+			ActionListener listen = new btnListeners(); 
+			deleteFrame.setTitle("Delete Folio");
+			JPanel panel = new JPanel();
+			JLabel youSure = new JLabel("Are you sure you wish to delete the current portfolio?");
+			deleteFrame.setLocationRelativeTo(null);
+			deleteFrame.setResizable(false);
+			deleteFrame.setLayout(null);
+			deleteFrame.setSize(300, 200);
+			deleteFrame.add(panel);
+			JButton positive = new JButton("yes");
+			JButton negative = new JButton("no");
 			panel.setBounds(0, 0, 300, 200);
 			panel.add(positive);
-			panel.add(yes);
-			panel.add(Cancel);
-			break;
-		case "save":
-			break;
-		case "quote":
-			newFolioFrame.setTitle("Quote");
-			newFolioFrame.setLocationRelativeTo(null);
-			newFolioFrame.setResizable(false);
-			newFolioFrame.setLayout(null);
-			newFolioFrame.setSize(300, 100);
-			panel.setBounds(0, 0, 300, 100);
-			newFolioFrame.add(panel);
-			panel.add(ticker);
-			panel.add(tickStr);
-			panel.add(value);
-			panel.add(valStr);
-			panel.add(quoteOk);
-			panel.add(Cancel);
-			valStr.setEditable(false);
-		break;
+			panel.add(negative);
+			deleteFrame.setVisible(true);
 		}
-			newFolioFrame.setVisible(true);
-		}
-*/
-	public static void addFolio(String name){
-		JTable newFolioTable = new JTable(DTM);
-		//DefaultTableModel D = (DefaultTableModel)table.getModel();
 		
-		/*table.setFillsViewportHeight(true);
-		tabs.addTab(name, new JScrollPane(table) );*/
+		public static void quoteShare(){
+			ActionListener listen = new btnListeners();
+			quoteFrame.setTitle("Quote");
+			quoteFrame.setLocationRelativeTo(null);
+			quoteFrame.setResizable(false);
+			quoteFrame.setLayout(null);
+			quoteFrame.setSize(300, 100);
+			JPanel panel = new JPanel();
+			panel.setBounds(0, 0, 300, 100);
+			JTextField quoteTicker = new JTextField(5);
+			JTextField quoteValue = new JTextField(6);
+			JButton quoteOk = new JButton("Quote");
+			quoteFrame.add(panel);
+			panel.add(quoteTicker);
+			panel.add(quoteValue);
+			panel.add(quoteOk);
+			quoteValue.setEditable(false);
+			quoteFrame.setVisible(true);
+		}
+
+	public static void addFolio(String name){
+		int numberOfTabs = tabs.getTabCount();
+		int errorFlag = 0;
+		for (int i = 0; i< numberOfTabs; i++) {
+			System.out.println("looping");
+			String currentName = tabs.getTitleAt(i);
+			if (currentName == name) {
+				errorFlag = 1;
+				error("Duplicate Folio Name");
+			}
+		}
+		if (!(errorFlag==1))
+		{
+		JTable newFolioTable = new JTable(DTM);
 		
 		newFolioTable.setFillsViewportHeight(true);
 		tabs.addTab(name, new JScrollPane(newFolioTable) );
 		
 		table_array.add(newFolioTable);
+		}
 	}
 	
 	public static String getTicker(){
@@ -352,7 +361,7 @@ public class homegui {
 			DTM2.addRow(row);
 		}
 		if (selectedIndex==3){DTM3.addRow(row);}
-		if (selectedIndex==4){DTM4.addRow(row);}
+	//	if (selectedIndex==4){DTM4.addRow(row);}
 		
 	}
 
@@ -409,13 +418,12 @@ public class homegui {
 	}
 
 
-	public static void errorMessage(String error) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
-	public static void destroyNewFolio(int panelNo){
-		newFolioFrame.setVisible(false);
+	public static void destroyFrame(int panelNo){
+		if (panelNo==0){
+			errorFrame.setVisible(false);
+		}
 
 		}
 	public static void saveWindow(){

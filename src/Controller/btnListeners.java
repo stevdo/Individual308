@@ -42,16 +42,16 @@ public class btnListeners implements ActionListener {
 				model.buyShare(ticker, quantity,flag);
 				
 			break;
-			case "New Portfolio":
+			case "New Portfolios":
 				homegui.newFolioEntry();
 				break;
 			case "Delete Portfolio":
 				System.out.println("jesus");
-				homegui.popupwindow("delete");
+				homegui.deleteFolio();
 			break;
 			case "Quote":
 				System.out.println("bitchez");
-				homegui.popupwindow("quote");
+				homegui.quoteShare();
 			break;
 			case "Save":
 				homegui.saveWindow();
@@ -63,16 +63,16 @@ public class btnListeners implements ActionListener {
 				System.out.println("in church");
 			break;
 			case "ok":
-				homegui.destroyNewFolio(0);
+				homegui.destroyFrame(0);
 				newFolio.newTab(homegui.getFolioName());
 			break;
 			case "yes":
-				homegui.destroyNewFolio(0);
+				homegui.destroyFrame(1);
 				
 				break;
 			case "cancel":
 				int panel = 0; 
-				homegui.destroyNewFolio(panel);
+				homegui.destroyFrame(panel);
 				break;
 		}
 		
