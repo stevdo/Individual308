@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -27,9 +29,7 @@ public class homegui {
 	public static JTabbedPane tabs = new JTabbedPane();
 	public static JTextField newFolio = new JTextField(20);
 	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
-	public static Object[][] data = {
-			{"", "", "",""}
-	};		
+	public static Object[][] data; 
 	static JTable table = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table1 = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table2 = new JTable(new DefaultTableModel(data, col_name));
@@ -40,6 +40,7 @@ public class homegui {
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
 	public static JFrame newFolioFrame = new JFrame();
 	public static JTextField valStr = new JTextField(5);
+	public static JTextField Value = new JTextField(5);
 	public void test() {
 		System.out.println("shapnin");
 		
@@ -81,6 +82,7 @@ public class homegui {
 		JButton save	= new JButton("Save");
 		JButton open	= new JButton("Open Portfolio");
 		JButton refresh = new JButton("Refresh");
+		JLabel thisFolio = new JLabel("Value");
 		
 		newFolio.addActionListener(listen);
 		delFolio.addActionListener(listen);
@@ -131,6 +133,8 @@ public class homegui {
 		inputPanel.add(Ticker);
 		inputPanel.add(tickerString);
 		inputPanel.setBorder(BorderFactory.createLineBorder(Color.magenta));
+		inputPanel.add(thisFolio);
+		inputPanel.add(Value);
 		quantity.setForeground(Color.black);
 		
 
@@ -141,7 +145,14 @@ public class homegui {
 		foliosFrame.setVisible(true); 
 		folioPanel.setVisible(true);
 		table.setVisible(true);
-		
+		tabs.addChangeListener(new ChangeListener(){
+	        public void stateChanged(ChangeEvent e) {
+	        	//updateValue();
+	        }
+	    });
+
+
+			
 
 	}	
 	
@@ -160,7 +171,6 @@ public class homegui {
 			
 		}}
 
-	
 	
 	public static void popupwindow(String type) {
 		
@@ -334,9 +344,7 @@ public class homegui {
 	
 
 	public static void addRow(Vector row, int selectedIndex) {
-		if (selectedIndex==0){
 			DTM.addRow(row);
-		}
 		if (selectedIndex==1){
 			DTM1.addRow(row);
 		}
@@ -344,7 +352,7 @@ public class homegui {
 			DTM2.addRow(row);
 		}
 		if (selectedIndex==3){DTM3.addRow(row);}
-	//	if (selectedIndex==4){DTM4.addRow(row);}
+		if (selectedIndex==4){DTM4.addRow(row);}
 		
 	}
 
@@ -437,19 +445,45 @@ public class homegui {
 		valStr.setText(value);
 		
 	}
+	
 
 
 	public static void loadedDataToTable(int row, int col, String data2) {
+		/*(String name, int quantity, String price, Float value)*/
 		int tab=  tabs.getSelectedIndex();
-			if (col==4) {
-				DTM.addRow(data);}
-			DTM.setValueAt(data2.toString(), row, col);
-			
+		int intData = 0;
+		Float floatData = 00.00f;
+		int rowCount=DTM.getRowCount();
+		if (col==0){ if (row < rowCount){
+		DTM.setValueAt(data2, row, col);}
+		else{
+			DTM.setRowCount(rowCount+1);
+			DTM.setValueAt(data2, row, col);}
 		}
 		
+		if (col==1){intData = Integer.valueOf(data2); DTM.setValueAt(intData, row, col);}
+		
+		if (col==2){
+			DTM.setValueAt(data2, row, col);}
+		
+		if (col==3) {
+			floatData = Float.valueOf(data2);
+			DTM.setValueAt(floatData, row, col);
+			}
+		
 	}
+	
+	
+	/*public static void updateValue() {
+		int current = tabs.getSelectedIndex();
+		Value.setText(t);
+		
+	}*/
 
-
-
-
+}
+//TO DO Portfolio valuee
+//implement quote
+//attempt mvc
+//kill urself
+//make new frames separate for all options
 	

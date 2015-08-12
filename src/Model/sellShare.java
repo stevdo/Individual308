@@ -36,11 +36,11 @@ public class sellShare {
 				 System.out.println(qt);
 				 System.out.println(quantity);
 				 float newValue = quantity*pr;
-				 if (quantity < 0) {
+				 if (qt < 0) {
 					 String Error= ("Not Enough Shares");
 					viewUpdate.invalidInput(Error);
 				 }
-				 if(quantity==0){
+				 if(qt==0){
 					 viewUpdate.removeRow(selectedIndex,shareLoc);
 				 }
 				viewUpdate.addMoreShares(qt,pr, newValue,shareLoc, selectedIndex);

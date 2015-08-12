@@ -40,13 +40,13 @@ public static void buyShare(String ticker, int quantity, int flag) {
 	
 	public static String[][] getData(int selectedIndex, String title, String path){
 		TableModel table= viewUpdate.returnDTM(selectedIndex);
-		if (!(table.getRowCount()==0)){System.out.println("not a nigger");
+		if (!(table.getRowCount()==0)){System.out.println("not a filled table");
 		
 		
 		int r = table.getRowCount();
 		
 		String[][] data_array = new String[r][4];
-		
+		//(String name, int quantity, String price, Float value)
 		for(int i = 0; i < r; i++){
 			data_array[i][0] = table.getValueAt(i, 0).toString();
 			data_array[i][1] = table.getValueAt(i, 1).toString();
@@ -75,8 +75,10 @@ public static void buyShare(String ticker, int quantity, int flag) {
 		}
 		return null;
 	}
+	
 	public static void loadFile(JFileChooser select){
 		System.out.println("1");
+		int rowRep = 0;
 		if (select.getSelectedFile() != null){
 		try{
 			System.out.println("2");
@@ -90,7 +92,10 @@ public static void buyShare(String ticker, int quantity, int flag) {
 					System.out.println("forring");
 					for(int j = 0;j<4;j++){
 						System.out.println("viewupdate calling loadtotable");
-						viewUpdate.LoadToTable(i,j,split_line[j]);
+						
+						viewUpdate.LoadToTable(rowRep,j,split_line[j]);
+						if (j==3){rowRep++;}
+						System.out.println(i);
 						
 					}
 				}

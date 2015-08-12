@@ -68,7 +68,7 @@ public class viewUpdate {
 	}
 	
 	public static void LoadToTable(int row, int col, String data) {
-		System.out.println("calling laodeddatatotable"+row+col+data);
+		System.out.println("calling laodeddatatotable"+ ' '+row+' '+col+' '+data);
 		homegui.loadedDataToTable(row,col,data);
 		
 	}
