@@ -28,10 +28,11 @@ public static void buyShare(String ticker, int quantity, int flag) {
 	}
 }
 	
-	public String quote(String ticker){
-		
-		String quoteVal = null;
+	public static void quote(String ticker){
+		System.out.println("lol ig ot calleed");
+		String quoteVal = "0";
 		try {
+			System.out.println("pls w8");
 			quoteVal = StrathQuoteServer.getLastValue(ticker);
 		} catch (WebsiteDataException e) {
 			// TODO Auto-generated catch block
@@ -40,7 +41,7 @@ public static void buyShare(String ticker, int quantity, int flag) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return quoteVal;
+		viewUpdate.quotedValue(quoteVal);
 		
 	}
 	

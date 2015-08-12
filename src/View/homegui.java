@@ -49,6 +49,8 @@ public class homegui {
 	public static JTextField newFolio = new JTextField(20);
 	public static JTextField valStr = new JTextField(5);
 	public static JTextField Value = new JTextField(5);
+	public static JTextField quoteValue = new JTextField(6);
+	public static JTextField quoteTicker = new JTextField(5);
 	public void test() {
 		System.out.println("shapnin");
 		
@@ -90,7 +92,7 @@ public class homegui {
 		JButton save	= new JButton("Save");
 		JButton open	= new JButton("Open Portfolio");
 		JButton refresh = new JButton("Refresh");
-		JLabel thisFolio = new JLabel("Value");
+		JLabel thisFolio = new JLabel("This folio value");
 		
 		newFolio.addActionListener(listen);
 		delFolio.addActionListener(listen);
@@ -155,7 +157,7 @@ public class homegui {
 		table.setVisible(true);
 		tabs.addChangeListener(new ChangeListener(){
 	        public void stateChanged(ChangeEvent e) {
-	        	//updateValue();
+	        	updateValue();
 	        }
 	    });
 
@@ -272,13 +274,12 @@ public class homegui {
 			quoteFrame.setSize(300, 100);
 			JPanel panel = new JPanel();
 			panel.setBounds(0, 0, 300, 100);
-			JTextField quoteTicker = new JTextField(5);
-			JTextField quoteValue = new JTextField(6);
-			JButton quoteOk = new JButton("Quote");
+			JButton quoteOk = new JButton("quote");
 			quoteFrame.add(panel);
 			panel.add(quoteTicker);
 			panel.add(quoteValue);
 			panel.add(quoteOk);
+			quoteOk.addActionListener(listen);
 			quoteValue.setEditable(false);
 			quoteFrame.setVisible(true);
 		}
@@ -480,18 +481,24 @@ public class homegui {
 			}
 		
 	}
+	 	
 	
-	
-	/*public static void updateValue() {
+	public static void updateValue() {
 		int current = tabs.getSelectedIndex();
-		Value.setText(t);
+		DefaultTableModel table =sendTable(current);
+		int total = table.getRowCount();
+		float value = 0;
+		for( int i=0; i<total; i++){
+			Float currval = (Float) table.getValueAt(i, 3);
+		value += currval;
+		}
+		String valueStr = Float.toString(value);
+		Value.setText(valueStr);
 		
-	}*/
+	}
 
 }
-//TO DO Portfolio valuee
-//implement quote
 //attempt mvc
+//delete folio
 //kill urself
-//make new frames separate for all options
-	
+

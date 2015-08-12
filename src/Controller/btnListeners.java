@@ -34,12 +34,14 @@ public class btnListeners implements ActionListener {
 				quantity = homegui.getAmount();
 				flag = 0;
 				model.buyShare(ticker, quantity,flag);
+				homegui.updateValue();
 			break;
 			case "Sell":
 				ticker = homegui.getTicker();
 				quantity = homegui.getAmount();
 				flag = 1;
 				model.buyShare(ticker, quantity,flag);
+				homegui.updateValue();
 				
 			break;
 			case "New Portfolios":
@@ -52,6 +54,10 @@ public class btnListeners implements ActionListener {
 			case "Quote":
 				System.out.println("bitchez");
 				homegui.quoteShare();
+			break;
+			case "quote":
+				System.out.println("nig");
+				model.quote(homegui.quoteTicker.getText());
 			break;
 			case "Save":
 				homegui.saveWindow();

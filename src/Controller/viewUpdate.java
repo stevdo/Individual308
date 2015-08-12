@@ -72,4 +72,11 @@ public class viewUpdate {
 		homegui.loadedDataToTable(row,col,data);
 		
 	}
+
+
+	public static void quotedValue(String quoteVal) {
+		homegui.quoteValue.setText(quoteVal);
+		System.out.println(quoteVal);
+		
+	}
 }
