@@ -29,24 +29,24 @@ public class sellShare {
 				 }				 
 			 }
 			 if(exists){
-				 System.out.println("All ready in table");
+				 System.out.println("Already in table");
 				 int qt = (int) DTM.getValueAt(shareLoc, 1);
 				 float pr = Float.parseFloat(price);
 				 qt -= quantity;
 				 System.out.println(qt);
-				 System.out.println(quantity);
 				 float newValue = quantity*pr;
 				 if (qt < 0) {
 					 String Error= ("Not Enough Shares");
-					viewUpdate.invalidInput(Error);
+					 viewUpdate.invalidInput(Error);
+					 viewUpdate.removeRow(selectedIndex,shareLoc);
 				 }
 				 if(qt==0){
 					 viewUpdate.removeRow(selectedIndex,shareLoc);
 				 }
-				viewUpdate.addMoreShares(qt,pr, newValue,shareLoc, selectedIndex);
+				 if(qt>0){
+				 viewUpdate.addMoreShares(qt,pr, newValue,shareLoc, selectedIndex);
 				 System.out.println(qt+ " "+pr+" " + " "+newValue);
-				 
-			 }
+			 }}
 			 if(!exists){
 				 System.out.println("Not in table");
 			 }}

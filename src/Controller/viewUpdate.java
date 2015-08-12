@@ -13,16 +13,8 @@ public class viewUpdate {
 		
 	public static void createNewFolio(String name){
 		
-		if( tabs==0) {
 		homegui.addFolio(name);
-		}
-		if( tabs == 1){
-		homegui.addFolio1(name);
-		}
-		if( tabs == 2){
-			homegui.addFolio2(name);
-			}
-		tabs++;
+	
 	}
 	
 	
@@ -77,6 +69,12 @@ public class viewUpdate {
 	public static void quotedValue(String quoteVal) {
 		homegui.quoteValue.setText(quoteVal);
 		System.out.println(quoteVal);
+		
+	}
+
+
+	public static void addFolio(String name) {
+		homegui.addFolio(name);
 		
 	}
 }

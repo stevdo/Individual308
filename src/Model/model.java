@@ -84,6 +84,7 @@ public static void buyShare(String ticker, int quantity, int flag) {
 	}
 	
 	public static void loadFile(JFileChooser select){
+		viewUpdate.addFolio(select.getSelectedFile().getName());
 		System.out.println("1");
 		int rowRep = 0;
 		if (select.getSelectedFile() != null){

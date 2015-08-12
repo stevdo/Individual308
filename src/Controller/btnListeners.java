@@ -73,6 +73,7 @@ public class btnListeners implements ActionListener {
 				newFolio.newTab(homegui.getFolioName());
 			break;
 			case "yes":
+				System.out.println("slut");
 				homegui.destroyFrame(1);
 				
 				break;
@@ -80,6 +81,8 @@ public class btnListeners implements ActionListener {
 				int panel = 0; 
 				homegui.destroyFrame(panel);
 				break;
+			case "positive":
+				homegui.deletion();
 		}
 		
 	}

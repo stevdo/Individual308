@@ -35,12 +35,16 @@ public class homegui {
 	static JTable table1 = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table2 = new JTable(new DefaultTableModel(data, col_name));
 	static JTable table3 = new JTable(new DefaultTableModel(data, col_name));
-	
+	static JTable table4 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table5 = new JTable(new DefaultTableModel(data, col_name));
 	
 	static DefaultTableModel DTM = (DefaultTableModel)table.getModel();
 	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
 	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
 	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
+	static DefaultTableModel DTM4 = (DefaultTableModel)table2.getModel();
+	static DefaultTableModel DTM5 = (DefaultTableModel)table3.getModel();
+	
 	public static JFrame newFolioFrame = new JFrame();
 	public static JFrame errorFrame = new JFrame();
 	public static JFrame deleteFrame = new JFrame();
@@ -182,30 +186,6 @@ public class homegui {
 		}}
 
 	
-	/*public static void popupwindow(String type) {
-		
-		ActionListener listen = new btnListeners();
-		
-		JPanel panel = new JPanel();
-		
-		//newfolio components
-		JButton newFolioOk = new JButton("ok");
-		JLabel enterName = new JLabel();
-		newFolioOk.addActionListener(listen);
-		//delete components
-		JLabel positive = new JLabel("Are you sure you want to delete the current portfolio?");
-		JButton yes =	new JButton("yes");
-		yes.addActionListener(listen);
-		
-		//quote components
-		JTextField tickStr = new JTextField(5);
-		JLabel ticker = new JLabel("Ticker String");
-		JLabel value = new JLabel("value");
-		JButton quoteOk = new JButton("ok");
-		JButton Cancel = new JButton("cancel");
-		quoteOk.addActionListener(listen);
-	}
-		*/
 		
 		
 		
@@ -255,14 +235,23 @@ public class homegui {
 			deleteFrame.setLocationRelativeTo(null);
 			deleteFrame.setResizable(false);
 			deleteFrame.setLayout(null);
-			deleteFrame.setSize(300, 200);
+			deleteFrame.setSize(300, 80);
 			deleteFrame.add(panel);
 			JButton positive = new JButton("yes");
 			JButton negative = new JButton("no");
-			panel.setBounds(0, 0, 300, 200);
+			panel.setBounds(0, 0, 300, 80);
 			panel.add(positive);
+			positive.addActionListener(listen);
 			panel.add(negative);
 			deleteFrame.setVisible(true);
+		}
+		public static void deletion(){
+			int current = tabs.getSelectedIndex();
+			DefaultTableModel CurrDtm = sendTable(current);
+			while (CurrDtm.getRowCount() > 0){
+			CurrDtm.removeRow(CurrDtm.getRowCount());
+			}
+			DTM = CurrDtm;
 		}
 		
 		public static void quoteShare(){
@@ -287,6 +276,7 @@ public class homegui {
 	public static void addFolio(String name){
 		int numberOfTabs = tabs.getTabCount();
 		int errorFlag = 0;
+		DefaultTableModel CurrDTM = sendTable(numberOfTabs);
 		for (int i = 0; i< numberOfTabs; i++) {
 			System.out.println("looping");
 			String currentName = tabs.getTitleAt(i);
@@ -297,7 +287,7 @@ public class homegui {
 		}
 		if (!(errorFlag==1))
 		{
-		JTable newFolioTable = new JTable(DTM);
+		JTable newFolioTable = new JTable(CurrDTM);
 		
 		newFolioTable.setFillsViewportHeight(true);
 		tabs.addTab(name, new JScrollPane(newFolioTable) );
@@ -323,38 +313,12 @@ public class homegui {
 		return newFolio.getText();
 	}
 	
-	public static void addFolio1(String name){
-		JTable newFolioTable1 = new JTable(DTM1);
-		//DefaultTableModel D = (DefaultTableModel)table.getModel();
-		
-		/*table.setFillsViewportHeight(true);
-		tabs.addTab(name, new JScrollPane(table) );*/
-		
-		newFolioTable1.setFillsViewportHeight(true);
-		tabs.addTab(name, new JScrollPane(newFolioTable1) );
-		
-		table_array.add(newFolioTable1);
-		System.out.println("im different!!!");
-	}
-	
-	public static void addFolio2(String name){
-		JTable newFolioTable2 = new JTable(DTM2);
-		//DefaultTableModel D = (DefaultTableModel)table.getModel();
-		
-		/*table.setFillsViewportHeight(true);
-		tabs.addTab(name, new JScrollPane(table) );*/
-		
-		newFolioTable2.setFillsViewportHeight(true);
-		tabs.addTab(name, new JScrollPane(newFolioTable2) );
-		
-		table_array.add(newFolioTable2);
-		System.out.println("im differentish!!!");
-	}
 	
 	
 
 	public static void addRow(Vector row, int selectedIndex) {
-			DTM.addRow(row);
+		if (selectedIndex==0){	
+		DTM.addRow(row);}
 		if (selectedIndex==1){
 			DTM1.addRow(row);
 		}
@@ -362,8 +326,9 @@ public class homegui {
 			DTM2.addRow(row);
 		}
 		if (selectedIndex==3){DTM3.addRow(row);}
-	//	if (selectedIndex==4){DTM4.addRow(row);}
 		
+		if (selectedIndex==4){DTM4.addRow(row);}
+		if (selectedIndex==5){DTM5.addRow(row);}
 	}
 
 
@@ -403,6 +368,12 @@ public class homegui {
 			return DTM1;}
 		if (index==2){
 			return DTM2;}
+		if (index==3){
+			return DTM3;}
+		if (index==4){
+			return DTM4;}
+		if (index==5){
+			return DTM5;}
 		else {return null;}
 		
 	}
@@ -416,6 +387,12 @@ public class homegui {
 			DTM1.removeRow(rowNum);}
 		if (index==2){
 			DTM2.removeRow(rowNum);}
+		if (index==3){
+			DTM3.removeRow(rowNum);}
+		if (index==4){
+			DTM4.removeRow(rowNum);}
+		if (index==5){
+			DTM5.removeRow(rowNum);}
 	}
 
 
@@ -425,7 +402,9 @@ public class homegui {
 		if (panelNo==0){
 			errorFrame.setVisible(false);
 		}
-
+		if (panelNo==1){
+			deleteFrame.setVisible(false);
+		}
 		}
 	public static void saveWindow(){
 	  String sb = "TEST CONTENT";
@@ -459,26 +438,40 @@ public class homegui {
 
 	public static void loadedDataToTable(int row, int col, String data2) {
 		/*(String name, int quantity, String price, Float value)*/
-		int tab=  tabs.getSelectedIndex();
+		int tab=  tabs.getTabCount();
 		int intData = 0;
 		Float floatData = 00.00f;
-		int rowCount=DTM.getRowCount();
+		DefaultTableModel CurrDTM=sendTable(tab+1);
+		int rowCount=CurrDTM.getRowCount();
+		
 		if (col==0){ if (row < rowCount){
-		DTM.setValueAt(data2, row, col);}
+		CurrDTM.setValueAt(data2, row, col);}
 		else{
-			DTM.setRowCount(rowCount+1);
-			DTM.setValueAt(data2, row, col);}
+			CurrDTM.setRowCount(rowCount+1);
+			CurrDTM.setValueAt(data2, row, col);}
 		}
 		
-		if (col==1){intData = Integer.valueOf(data2); DTM.setValueAt(intData, row, col);}
+		if (col==1){intData = Integer.valueOf(data2);CurrDTM.setValueAt(intData, row, col);}
 		
 		if (col==2){
-			DTM.setValueAt(data2, row, col);}
+			CurrDTM.setValueAt(data2, row, col);}
 		
 		if (col==3) {
 			floatData = Float.valueOf(data2);
-			DTM.setValueAt(floatData, row, col);
+			CurrDTM.setValueAt(floatData, row, col);
 			}
+		if (tab==0){
+			DTM=CurrDTM;}
+		if (tab==1){
+			DTM1=CurrDTM;}
+		if (tab==2){
+			DTM2=CurrDTM;}
+		if (tab==3){
+			DTM3=CurrDTM;}
+		if (tab==4){
+			DTM4=CurrDTM;}
+		if (tab==5){
+			DTM5=CurrDTM;}
 		
 	}
 	 	
