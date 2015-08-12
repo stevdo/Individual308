@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.Vector;
 
+import javax.swing.JScrollPane;
 import javax.swing.table.TableModel;
 
 import Model.buyShare;
@@ -62,7 +63,7 @@ public class viewUpdate {
 		System.out.println("selected nigger");
 	}
 	
-	public static void invalidInput(String error) {
+	public static void error(String error) {
 		homegui.error(error);
 		
 	}
@@ -70,6 +71,16 @@ public class viewUpdate {
 	public static void LoadToTable(int row, int col, String data) {
 		System.out.println("calling laodeddatatotable"+ ' '+row+' '+col+' '+data);
 		homegui.loadedDataToTable(row,col,data);
+		
+	}
+
+	public  fetchTabNames(){
+		//todo make this return the tab names so i can look through them in the model
+		//to search for duplicate names
+	}
+	
+	public static void addFolio(String name, JScrollPane table) {
+		homegui.tabs.addTab(name, new JScrollPane(table));
 		
 	}
 }

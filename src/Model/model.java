@@ -3,9 +3,11 @@ package Model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -15,8 +17,104 @@ import Controller.viewUpdate;
 
 public class model {
 	
-
+	static JTable table = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table1 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table2 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table3 = new JTable(new DefaultTableModel(data, col_name));
+	static JTable table4 = new JTable(new DefaultTableModel(data, col_name));
+	private static ArrayList<JTable> table_array = new ArrayList<JTable>();
 	
+	static DefaultTableModel DTM = (DefaultTableModel)table.getModel();
+	static DefaultTableModel DTM1 = (DefaultTableModel)table1.getModel();
+	static DefaultTableModel DTM2 = (DefaultTableModel)table2.getModel();
+	static DefaultTableModel DTM3 = (DefaultTableModel)table3.getModel();
+	static DefaultTableModel DTM4 = (DefaultTableModel)table4.getModel();
+	
+	
+	static String[] col_name = {"Ticker", "Quantity", "$/Share","Value"};
+	public static Object[][] data; 
+	
+	public static void Initialize(){
+		table_array.add(table);
+		table_array.add(model.table);
+	}
+	
+	public static void addFolio(String name){
+		int numberOfTabs = tabs.getTabCount();
+		int errorFlag = 0;
+		for (int i = 0; i< numberOfTabs; i++) {
+			System.out.println("looping");
+			String currentName = tabs.getTitleAt(i);
+			if (currentName == name) {
+				errorFlag = 1;
+				viewUpdate.error("Duplicate Folio Name");
+			}
+		}
+		if (!(errorFlag==1))
+		{
+		JTable newFolioTable = new JTable(DTM);
+		
+		newFolioTable.setFillsViewportHeight(true);
+		viewUpdate.addFolio(name, new JScrollPane(newFolioTable));
+		table_array.add(newFolioTable);
+		}
+	}
+	
+	public static void addFolio1(String name){
+		JTable newFolioTable1 = new JTable(DTM1);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable1.setFillsViewportHeight(true);
+		viewUpdate.addFolio(name,new JScrollPane(newFolioTable1));
+		
+		table_array.add(newFolioTable1);
+		System.out.println("im different!!!");
+	}
+	
+	public static void addFolio2(String name){
+		JTable newFolioTable2 = new JTable(DTM2);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable2.setFillsViewportHeight(true);
+		viewUpdate.addFolio(name,new JScrollPane(newFolioTable2));
+		
+		table_array.add(newFolioTable2);
+		System.out.println("im differentish!!!");
+	}
+	
+	public static void addFolio3(String name){
+		JTable newFolioTable3 = new JTable(DTM3);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable3.setFillsViewportHeight(true);
+		viewUpdate.addFolio(name,new JScrollPane(newFolioTable3));
+		
+		table_array.add(newFolioTable3);
+		System.out.println("im differentish!!!");
+	}
+	
+	public static void addFolio4(String name){
+		JTable newFolioTable4 = new JTable(DTM4);
+		//DefaultTableModel D = (DefaultTableModel)table.getModel();
+		
+		/*table.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(table) );*/
+		
+		newFolioTable4.setFillsViewportHeight(true);
+		tabs.addTab(name, new JScrollPane(newFolioTable4) );
+		
+		table_array.add(newFolioTable4);
+		System.out.println("im differentish!!!");
+	}
 	
 public static void buyShare(String ticker, int quantity, int flag) {
 	float value = 321;
